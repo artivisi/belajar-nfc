@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package belajar.nfc.Controller;
+package belajar.nfc.controller;
 
 import belajar.nfc.domain.EntriTransaksi;
 import belajar.nfc.service.EntriTransaksiDao;
