@@ -1,3 +1,5 @@
+package belajar.nfc.domain;
+
 
 import belajar.nfc.domain.Customer;
 import com.sun.istack.internal.Nullable;
