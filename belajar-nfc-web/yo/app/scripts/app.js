@@ -28,9 +28,13 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-      .when('/customer', {
+      .when('/master/customer', {
         templateUrl: 'views/customer.html',
         controller: 'CustomerCtrl'
+      })
+      .when('/transaksi/entriTransaksi', {
+        templateUrl: 'views/entri_transaksi.html',
+        controller: 'EntryTransaksiCtrl'
       })
       .otherwise({
         redirectTo: '/'
