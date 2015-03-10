@@ -1,0 +1,153 @@
+<div class="row">
+    <div class="col-xs-12">
+        <center>
+            <div class="alert {{styleAlert}}" ng-show="alert">
+                <span><b>Success !</b> {{textAlert}}</span>
+            </div>
+        </center>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-5">
+        <form name="formCustomer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Form Input Registrasi Customer
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group" ng-class="{'has-error':formCustomer.nama.$invalid, 'has-success':formCustomer.nama.$valid}">
+                            <div class="col-sm-4">
+                                <label for="nama" class="control-label">Nama</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input name="nama" type="text" class="form-control" ng-model="currentCustomer.nama" auto-complete="off" required />
+                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formCustomer.nama.$error.required">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':formCustomer.email.$invalid, 'has-success':formCustomer.email.$valid}">
+                            <div class="col-sm-4">
+                                <label for="email" class="control-label">Email</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input name="email" type="email" class="form-control" ng-model="currentCustomer.email" placeholder="Ex : customer@email.com" required />
+                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formCustomer.email.$error.required">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':formCustomer.alamat.$invalid, 'has-success':formCustomer.alamat.$valid}">
+                            <div class="col-sm-4">
+                                <label for="alamat" class="control-label">Alamat</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" ng-model="currentCustomer.alamat" rows="3" name="alamat" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':formCustomer.tanggalLahir.$invalid, 'has-success':formCustomer.tanggalLahir.$valid}">
+                            <div class="col-sm-4">
+                                <label for="tanggalLahir" class="control-label">Tanggal Lahir</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="input-group">
+                                  <input type="text" 
+                                         class="form-control" 
+                                         name="tanggalLahir" 
+                                         ng-model="currentCustomer.tanggalLahir"
+                                         datepicker-popup="dd MMMM yyyy" 
+                                         is-open="openedtanggalLahir" 
+                                         close-text="Close" 
+                                         required />
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="opentanggalLahir($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formCustomer.tanggalLahir.$error.required">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':formCustomer.foto.$invalid, 'has-success':foto.foto.$valid}">
+                            <div class="col-sm-4">
+                                <label for="foto" class="control-label">Foto</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input class="form-control" name="foto" ng-model='currentCustomer.foto' type="file"required />
+                            </div>
+                        </div>
+                        <div align="right">
+                            <button class="btn btn-primary" ng-click="save()" ng-disabled="isClean() || formCustomer.$invalid">Save</button>
+                            <button class="btn btn-default" ng-click="clear()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Nama
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Alamat
+                    </th>
+                    <th>
+                        Tanggal Lahir
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in customers">
+                    <td>{{x.nama}}</td>
+                    <td>{{x.email}}</td>
+                    <td>{{x.alamat}}</td>
+                    <td>{{x.tanggalLahir | date: 'yyyy-MM-dd'}}</td>
+                    <td class="col-xs-1">
+                        <a class="glyphicon glyphicon-edit" ng-click="edit(x)"></a>
+                        <a class="glyphicon glyphicon-remove" ng-click="showDialogDelete(x)"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <div align="center">
+            <pagination 
+                total-items="paging.totalItems" 
+                ng-model="paging.currentPage"
+                ng-change="showUsers()"
+                class="pagination-sm"
+                items-per-page="paging.itemsPerPage"
+                boundary-links="true"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;">
+            </pagination>
+        </div>
+    </div>
+</div>
+
+<!-- Dialog Delete -->
+<div class="modal fade bs-example-modal-sm" id="dialogDelete" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+          <center>Are you sure ?</center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" ng-click="remove()" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
