@@ -23,36 +23,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class CustomerController {
+
     @Autowired
     private CustomerDao customerDao;
-    
-    @RequestMapping (value = "/customer", method = RequestMethod.GET)
-    public Iterable<Customer> findAllCustomer(){
+
+    @RequestMapping(value = "/customer", method = RequestMethod.GET)
+    public Iterable<Customer> findAllCustomer() {
         return customerDao.findAll();
-               
+
     }
-    
+
     @RequestMapping(value = "/customer", method = RequestMethod.POST)
-    public void saveCustomer(@RequestBody Customer customer, HttpServletRequest request, HttpServletResponse response) throws Exception{
-     if (customer == null){
-         throw new Exception("Tidak boleh kosong");
-     }   
-     customerDao.save(customer);
-   
+    public void saveCustomer(@RequestBody Customer customer, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (customer == null) {
+            throw new Exception("Tidak boleh kosong");
+        }
+        customerDao.save(customer);
+
     }
-    
-    @RequestMapping(value ="/customer/{id}", method = RequestMethod.DELETE)
-    public void deleteCustomer(@PathVariable(value ="id") String id)throws Exception{
-        if(id== null){
+
+    @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
+    public void deleteCustomer(@PathVariable(value = "id") String id) throws Exception {
+        if (id == null) {
             throw new Exception("id tidak ada");
         }
-        
-        Customer customer= customerDao.findOne(id);
-        
-        if(customer == null){
+
+        Customer customer = customerDao.findOne(id);
+
+        if (customer == null) {
             throw new Exception("Data tidak ditemukan");
         }
         customerDao.delete(customer);
     }
-    
+
 }

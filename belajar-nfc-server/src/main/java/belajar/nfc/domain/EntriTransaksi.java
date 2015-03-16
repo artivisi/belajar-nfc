@@ -16,14 +16,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
-import javax.xml.ws.soap.Addressing;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
  * @author renaldy
  */
-@Entity @Table(name = "transaksi")
+@Entity 
+@Table(name = "transaksi")
 public class EntriTransaksi {
     @Id
     @GeneratedValue(generator = "system-uuid")

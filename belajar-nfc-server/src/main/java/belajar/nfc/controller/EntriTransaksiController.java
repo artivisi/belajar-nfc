@@ -19,39 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
  * @author renaldy
  */
 @RestController
- @RequestMapping("/api")
+@RequestMapping("/api")
 public class EntriTransaksiController {
-    
+
     @Autowired
     private EntriTransaksiDao entriTransaksiDao;
-    
-    @RequestMapping(value = "/entriTransaksi" , method = RequestMethod.GET)
+
+    @RequestMapping(value = "/entriTransaksi", method = RequestMethod.GET)
     public Iterable<EntriTransaksi> findAllEntriTransaksi() {
         return entriTransaksiDao.findAll();
     }
-    
+
     @RequestMapping(value = "/entriTransaksi/{id}", method = RequestMethod.DELETE)
-    public void deleteEntriTransaksi(@PathVariable(value = "id")String id) throws Exception {
+    public void deleteEntriTransaksi(@PathVariable(value = "id") String id) throws Exception {
         if (id == null) {
             throw new Exception("id tidak ada");
         }
-        
+
         EntriTransaksi entriTransaksi = entriTransaksiDao.findOne(id);
-        
+
         if (entriTransaksi == null) {
             throw new Exception("Data tidak ditemukan");
         }
-        
+
         entriTransaksiDao.delete(entriTransaksi);
     }
-    
+
     @RequestMapping(value = "/entriTransaksi", method = RequestMethod.POST)
-    public void saveEntriTransaksi(@RequestBody EntriTransaksi entriTransaksi) throws Exception{
+    public void saveEntriTransaksi(@RequestBody EntriTransaksi entriTransaksi) throws Exception {
         if (entriTransaksi == null) {
             throw new Exception("Tidak Boleh Kosong");
         }
         entriTransaksiDao.save(entriTransaksi);
     }
-    
-    
+
 }
