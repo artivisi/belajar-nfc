@@ -35,7 +35,6 @@ public class EntriTransaksi {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date tanggal;
     
-    
     @NotNull
     @Column(nullable = false)
     private String keterangan;

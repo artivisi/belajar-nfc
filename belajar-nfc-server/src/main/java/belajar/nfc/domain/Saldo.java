@@ -1,8 +1,6 @@
 package belajar.nfc.domain;
 
-
-import belajar.nfc.domain.Customer;
-import com.sun.istack.internal.Nullable;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
@@ -27,7 +25,8 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "saldo")
-public class Saldo {
+public class Saldo implements Serializable {
+    
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
