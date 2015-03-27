@@ -10,6 +10,8 @@ import belajar.nfc.service.CustomerDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,16 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author andikha
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerDao customerDao;
 
-    @RequestMapping(value = "/customer", method = RequestMethod.GET)
-    public Iterable<Customer> findAllCustomer() {
-        return customerDao.findAll();
-
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public Page<Customer> findAllCustomer(Pageable pageable) {
+        return customerDao.findAll(pageable);
+    }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Customer findOne(@PathVariable(value = "id") String id) {
+        return customerDao.findOne(id);
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.POST)

@@ -6,7 +6,7 @@
 package belajar.nfc.service;
 
 import belajar.nfc.domain.Customer;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author andikha
  */
 @Repository
-public interface CustomerDao extends CrudRepository<Customer, String>{
+public interface CustomerDao extends PagingAndSortingRepository<Customer, String>{
 
 }

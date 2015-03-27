@@ -43,7 +43,7 @@ public class Customer {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date tanggalLahir;
     
-    @Column(nullable = false)
+    @Column
     private byte[] foto;
 
     public String getId() {
