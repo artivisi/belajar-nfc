@@ -29,6 +29,11 @@ public class EntriTransaksiController {
     public Iterable<EntriTransaksi> findAllEntriTransaksi() {
         return entriTransaksiDao.findAll();
     }
+    
+    @RequestMapping(value = "/entriTransaksi/{id}", method = RequestMethod.GET)
+    public EntriTransaksi findOne(@PathVariable(value = "id") String id) {
+        return entriTransaksiDao.findOne(id);
+    }
 
     @RequestMapping(value = "/entriTransaksi/{id}", method = RequestMethod.DELETE)
     public void deleteEntriTransaksi(@PathVariable(value = "id") String id) throws Exception {
