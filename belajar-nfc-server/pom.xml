@@ -72,6 +72,13 @@
             <artifactId>threetenbp</artifactId>
             <version>1.2</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.threeten</groupId>
+            <artifactId>threetenbp</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
