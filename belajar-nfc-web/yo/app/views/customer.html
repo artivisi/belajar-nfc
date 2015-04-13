@@ -105,14 +105,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in customers">
+                <tr ng-repeat="x in customers.content">
                     <td>{{x.nama}}</td>
                     <td>{{x.email}}</td>
                     <td>{{x.alamat}}</td>
                     <td>{{x.tanggalLahir | date: 'yyyy-MM-dd'}}</td>
                     <td class="col-xs-1">
                         <a class="glyphicon glyphicon-edit" ng-click="edit(x)"></a>
-                        <a class="glyphicon glyphicon-remove" ng-click="showDialogDelete(x)"></a>
+                        <a class="glyphicon glyphicon-remove" ng-click="deleteCustomer(x)"></a>
                     </td>
                 </tr>
             </tbody>
