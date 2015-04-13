@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@PropertySource("classpath:clients.properties")
+@PropertySource("classpath:client.properties")
 @EnableWebMvc
 public class NfcApp {
     
