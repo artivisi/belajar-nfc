@@ -7,6 +7,8 @@ package belajar.nfc.controller;
 
 import belajar.nfc.domain.Customer;
 import belajar.nfc.service.CustomerDao;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -29,7 +33,7 @@ public class CustomerController {
     @Autowired
     private CustomerDao customerDao;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Page<Customer> findAllCustomer(Pageable pageable) {
         return customerDao.findAll(pageable);
     }
@@ -39,16 +43,30 @@ public class CustomerController {
         return customerDao.findOne(id);
     }
 
-    @RequestMapping(value = "/customer", method = RequestMethod.POST)
-    public void saveCustomer(@RequestBody Customer customer, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (customer == null) {
+    @RequestMapping(method = RequestMethod.POST)
+    public void saveCustomer(HttpServletRequest request, 
+        HttpServletResponse response, 
+        @RequestParam("foto") MultipartFile multipartFile) throws Exception {
+        Customer customer = new Customer();
+        if (customer != null) {
+            customer.setNama(request.getParameter("nama"));
+            customer.setAlamat(request.getParameter("alamat"));
+            customer.setEmail(request.getParameter("email"));
+            String customerDate = request.getParameter("tanggalLahir");
+            SimpleDateFormat formatDdate = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = formatDdate.parse(customerDate);
+            customer.setTanggalLahir(date);
+            byte[] buf = new byte[multipartFile.getInputStream().available()];
+            customer.setFoto(buf);
+            customerDao.save(customer);
+        }
+        else if(customer == null){
             throw new Exception("Tidak boleh kosong");
         }
-        customerDao.save(customer);
 
     }
 
-    @RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteCustomer(@PathVariable(value = "id") String id) throws Exception {
         if (id == null) {
             throw new Exception("id tidak ada");

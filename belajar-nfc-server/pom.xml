@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.2.RELEASE</version>
+        <version>1.2.3.RELEASE</version>
     </parent>
   
     <dependencies>
@@ -72,6 +72,13 @@
             <artifactId>threetenbp</artifactId>
             <version>1.2</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.threeten</groupId>
+            <artifactId>threetenbp</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
