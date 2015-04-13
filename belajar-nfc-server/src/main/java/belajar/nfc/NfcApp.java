@@ -1,11 +1,13 @@
 package belajar.nfc;
 
-import belajar.nfc.interceptor.CorsInterceptor;
+import belajar.nfc.interceptor.CORSFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -17,8 +19,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan
 @EnableAutoConfiguration
 @EnableTransactionManagement
+@PropertySource("classpath:clients.properties")
 @EnableWebMvc
 public class NfcApp {
+    
+    @Value("${allowedHosts}")
+    private String allowedHosts;
     
     public static void main( String[] args ) {
         SpringApplication.run(NfcApp.class, args);
@@ -36,8 +42,7 @@ public class NfcApp {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(new CorsInterceptor());
-                
+                registry.addInterceptor(new CORSFilter(allowedHosts));
             }
         };
     }
