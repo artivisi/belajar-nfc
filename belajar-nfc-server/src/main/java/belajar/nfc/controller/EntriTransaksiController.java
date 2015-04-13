@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-public class EntriTransaksiController {
+public class EntriTransaksiController extends OptionsController {
 
     @Autowired
     private EntriTransaksiDao entriTransaksiDao;

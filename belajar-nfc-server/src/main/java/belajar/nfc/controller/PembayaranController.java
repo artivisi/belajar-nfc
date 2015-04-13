@@ -22,7 +22,7 @@ import org.threeten.bp.temporal.ChronoUnit;
  */
 @RestController
 @RequestMapping("/api/bayar")
-public class PembayaranController {
+public class PembayaranController extends OptionsController {
 
     @Autowired
     private SaldoDao saldoDao;
