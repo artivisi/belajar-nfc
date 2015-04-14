@@ -1,22 +1,26 @@
 'use strict';
 
 angular.module('belajarNfcappApp')
-  .factory('customerservice', function ($http) {
+  .factory('customerservice', function ($http, ConfigService) {
     return {
       query: function(){ 
-      	  return $http.get('http://localhost:10000/api/customer/');
+      	  return $http({method: 'GET', url: ConfigService.serverUrl + '/customer/'}); 
       },
       save: function(obj){
           if(obj.id == null){
-              return $http.post('http://localhost:10000/api/customer/', obj);
+              var uploadUrl = ConfigService.serverUrl +'/customer';
+              return $http.post(uploadUrl, obj, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                      });
           } else {
-              return $http.put('http://localhost:10000/api/customer/'+obj.id, obj);
+              return $http({method: 'PUT', url: ConfigService.serverUrl + '/customer/'+obj.id}, obj);
           }
       },
       remove: function(obj){
           if(obj.id != null){
-              return $http.delete('http://localhost:10000/api/customer/'+obj.id);
+              return $http({method: 'DELETE', url: ConfigService.serverUrl + "/customer/"+obj.id});
           }
       }
-    };
+    }
   });

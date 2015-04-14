@@ -21,7 +21,7 @@ public class CORSFilter  extends HandlerInterceptorAdapter {
         String origin = request.getHeader("Origin");
         if (allowedOrigins.contains(origin)) {
             System.out.println("Origin "+origin+" terdaftar dalam clients.properties");
-            response.addHeader("Access-Control-Allow-Origin", origin);
+//            response.addHeader("Access-Control-Allow-Origin", origin);
             if (request.getHeader("Access-Control-Request-Method") != null && "OPTIONS".equals(request.getMethod())) {
                 response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
                 response.addHeader("Access-Control-Allow-Headers", "Content-Type");
