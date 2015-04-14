@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @author renaldy
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/entriTransaksi")
 public class EntriTransaksiController extends OptionsController {
 
     @Autowired
     private EntriTransaksiDao entriTransaksiDao;
 
-    @RequestMapping(value = "/entriTransaksi", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<EntriTransaksi> findAllEntriTransaksi() {
         return entriTransaksiDao.findAll();
     }
     
-    @RequestMapping(value = "/entriTransaksi/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public EntriTransaksi findOne(@PathVariable(value = "id") String id) {
         return entriTransaksiDao.findOne(id);
     }
 
-    @RequestMapping(value = "/entriTransaksi/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteEntriTransaksi(@PathVariable(value = "id") String id) throws Exception {
         if (id == null) {
             throw new Exception("id tidak ada");
@@ -50,8 +50,17 @@ public class EntriTransaksiController extends OptionsController {
         entriTransaksiDao.delete(entriTransaksi);
     }
 
-    @RequestMapping(value = "/entriTransaksi", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void saveEntriTransaksi(@RequestBody EntriTransaksi entriTransaksi) throws Exception {
+        if (entriTransaksi == null) {
+            throw new Exception("Tidak Boleh Kosong");
+        }
+        entriTransaksi.setLunas(Boolean.FALSE);
+        entriTransaksiDao.save(entriTransaksi);
+    }
+    
+    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
+    public void updateEntriTransaksi(@RequestBody EntriTransaksi entriTransaksi) throws Exception {
         if (entriTransaksi == null) {
             throw new Exception("Tidak Boleh Kosong");
         }

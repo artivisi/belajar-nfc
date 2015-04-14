@@ -1,106 +1,178 @@
 <div class="row">
-    <div class="col-xs-12">
-        <center>
-            <div class="alert {{styleAlert}}" ng-show="alert">
-                <span><b>Success !</b> {{textAlert}}</span>
+    <div class="col-xs-6">
+    <form name="formEntriTransaksi">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Pilih Customer
             </div>
-        </center>
-    </div>
-</div>
-<form name="formEntriTransaksi">
-    <div class="row">
-        <div class="col-xs-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Pilih Customer
-                </div>
-                <div class="panel-body">
-                    <div class="form-horizontal">
-                        <div class="form-group" ng-class="{'has-error':formEntriTransaksi.customer.$invalid, 'has-success':formEntriTransaksi.customer.$valid}">
-                            <div class="col-sm-4">
-                                <label for="customer" class="control-label">Customer</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="customer" ng-model="currentEntriTransaksi.customer.id" required>
-                                    <option ng-model="mycustomer" ng-repeat="customer in customers" value="{{customer.id}}">{{customer.name}}</option>
-                                </select>
-                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formEntriTransaksi.customer.$error.required">This Field is Required</span>
-                            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div 
+                        class="form-group" 
+                        ng-class="{
+                            'has-error':formEntriTransaksi.customer.$invalid, 
+                            'has-success':formEntriTransaksi.customer.$valid
+                            }"
+                        >
+                        <div class="col-sm-4">
+                            <label for="customer" class="control-label">Customer</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select 
+                                class="form-control" 
+                                name="customer" 
+                                ng-model="currentEntryTransaction.customer.id" 
+                                required>
+                                <option 
+                                    ng-model="selectedCustomer" 
+                                    ng-repeat="customer in customers" 
+                                    value="{{customer.id}}">
+                                    {{customer.nama}}
+                                </option>
+                            </select>
+                            <span 
+                                style="
+                                    float:right; 
+                                    color:white" 
+                                class="
+                                    help-block
+                                    label
+                                    label-danger" 
+                                ng-show="formEntriTransaksi.customer.$error.required">
+                                This Field is Required
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Form Input Transaksi
-                </div>
-                <div class="panel-body">
-                    <div class="form-horizontal">
-                        <div class="form-group" ng-class="{'has-error':formEntriTransaksi.tanggal.$invalid, 'has-success':formEntriTransaksi.tanggal.$valid}">
-                            <div class="col-sm-4">
-                                <label for="tanggal" class="control-label">Tanggal Transaksi</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <p class="input-group">
-                                  <input type="text" 
-                                         class="form-control" 
-                                         name="tanggal" 
-                                         ng-model="currentEntriTransaksi.tanggal"
-                                         datepicker-popup="dd MMMM yyyy" 
-                                         is-open="openedTanggal" 
-                                         close-text="Close" 
-                                         required />
-                                  <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="openTanggal($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                  </span>
-                                </p>
-                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formEntriTransaksi.tanggal.$error.required">This Field is Required</span>
-                            </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Form Input Transaksi
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <!-- <div 
+                        class="form-group" 
+                        ng-class="{
+                            'has-error':formEntriTransaksi.tanggal.$invalid, 
+                            'has-success':formEntriTransaksi.tanggal.$valid
+                            }"
+                        >
+                        <div class="col-sm-4">
+                            <label for="tanggal" class="control-label">Tanggal Transaksi</label>
                         </div>
-                        <div class="form-group" ng-class="{'has-error':formEntriTransaksi.nilaiTransaksi.$invalid, 'has-success':formEntriTransaksi.nilaiTransaksi.$valid}">
-                            <div class="col-sm-4">
-                                <label for="nilaiTransaksi" class="control-label">Nilai Transaksi</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input name="nilaiTransaksi" type="text" class="form-control" ng-model="currentEntriTransaksi.nilaiTransaksi" auto-complete="off" required />
-                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formEntriTransaksi.nilaiTransaksi.$error.required">This Field is Required</span>
-                            </div>
+                        <div class="col-sm-8">
+                            <p class="input-group">
+                            <input type="text" 
+                                 class="form-control" 
+                                 name="tanggal" 
+                                 ng-model="currentEntriTransaction.tanggal"
+                                 datepicker-popup="dd MMMM yyyy" 
+                                 is-open="tanggalIsOpened" 
+                                 close-text="Close" 
+                                 required />
+                                <span class="input-group-btn">
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-default" 
+                                        ng-click="openTanggal($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                            <span 
+                                style="
+                                    float:right; 
+                                    color:white" 
+                                class="
+                                    help-block 
+                                    label 
+                                    label-danger" 
+                                ng-show="formEntriTransaksi.tanggal.$error.required">
+                                This Field is Required
+                            </span>
                         </div>
-                        <div class="form-group" ng-class="{'has-error':formEntriTransaksi.lunas.$invalid, 'has-success':formEntriTransaksi.lunas.$valid}">
-                            <div class="col-sm-4">
-                                <label for="lunas" class="control-label">Lunas</label>
-                            </div>
-                            <div class="col-sm-8" style="margin-top: 15px;">
-                                <input name="lunas" type="checkbox" ng-model="currentEntriTransaksi.lunas" required />
-                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formEntriTransaksi.lunas.$error.required">This Field is Required</span>
-                            </div>
+                    </div> -->
+                    <div 
+                        class="form-group" 
+                        ng-class="{
+                            'has-error':formEntriTransaksi.nilaiTransaksi.$invalid, 
+                            'has-success':formEntriTransaksi.nilaiTransaksi.$valid
+                            }"
+                        >
+                        <div class="col-sm-4">
+                            <label for="nilaiTransaksi" class="control-label">Nilai Transaksi</label>
                         </div>
-                        <div class="form-group" ng-class="{'has-error':formEntriTransaksi.keterangan.$invalid, 'has-success':formEntriTransaksi.keterangan.$valid}">
-                            <div class="col-sm-4">
-                                <label for="keterangan" class="control-label">Keterangan</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input name="keterangan" type="text" class="form-control" ng-model="currentEntriTransaksi.keterangan" required />
-                                <span style="float:right; color:white" class="help-block label label-danger" ng-show="formEntriTransaksi.keterangan.$error.required">This Field is Required</span>
-                            </div>
+                        <div class="col-sm-8">
+                            <input 
+                                name="nilaiTransaksi" 
+                                type="text" 
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                class="form-control" 
+                                ng-model="currentEntryTransaction.nilaiTransaksi" 
+                                auto-complete="off" 
+                                required />
+                            <span 
+                                style="
+                                    float:right;
+                                    color:white" 
+                                class="
+                                    help-block
+                                    label
+                                    label-danger" 
+                                ng-show="formEntriTransaksi.nilaiTransaksi.$error.required">
+                                This Field is Required
+                            </span>
                         </div>
-                        <div align="right">
-                            <button class="btn btn-primary" ng-click="save()" ng-disabled="isClean() || formEntriTransaksi.$invalid">Save</button>
-                            <button class="btn btn-default" ng-click="clear()">Cancel</button>
+                    </div>
+                    <div 
+                        class="form-group"
+                        ng-class="{
+                            'has-error':formEntriTransaksi.keterangan.$invalid,
+                            'has-success':formEntriTransaksi.keterangan.$valid
+                            }"
+                        >
+                        <div class="col-sm-4">
+                            <label for="keterangan" class="control-label">Keterangan</label>
                         </div>
+                        <div class="col-sm-8">
+                            <input
+                                name="keterangan"
+                                type="text"
+                                class="form-control"
+                                ng-model="currentEntryTransaction.keterangan"
+                                required />
+                            <span
+                                style="
+                                    float:right;
+                                    color:white"
+                                class="
+                                    help-block
+                                    label
+                                    label-danger" 
+                                ng-show="formEntriTransaksi.keterangan.$error.required">
+                                This Field is Required
+                            </span>
+                        </div>
+                    </div>
+                    <div align="right">
+                        <button 
+                            class="
+                                btn
+                                btn-primary" 
+                            ng-click="save(currentEntryTransaction)"
+                            ng-disabled="isClean() || formEntriTransaksi.$invalid">
+                            Save
+                        </button>
+                        <button class="btn btn-default" ng-click="clearForm()">Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
+    </form>
     </div>
-</form>
-<br><br>
-<div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -117,58 +189,82 @@
                         Lunas
                     </th>
                     <th>
-                        Keterangan
-                    </th>
-                    <th>
                         Action
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in customers">
-                    <td>{{x.customer.nama}}</td>
-                    <td>{{x.nilaiTransaksi}}</td>
-                    <td>{{x.tanggal}}</td>
-                    <td>{{x.lunas}}</td>
-                    <td>{{x.keterangan}}</td>
-                    <td class="col-xs-1">
-                        <a class="glyphicon glyphicon-edit" ng-click="edit(x)"></a>
-                        <a class="glyphicon glyphicon-remove" ng-click="showDialogDelete(x)"></a>
+                <tr ng-repeat="t in transactions">
+                    <td>{{t.customer.nama}}</td>
+                    <td>{{t.nilaiTransaksi}}</td>
+                    <td>{{ t.tanggal | date : 'dd MMMM yyyy'}}</td>
+                    <td>{{t.lunas}}</td>
+                    <td class="col-xs-1" style="text-align : center">
+                        <a 
+                            style="text-decoration : none" 
+                            class="glyphicon glyphicon-edit" 
+                            ng-click="edit(t)">
+                        </a>
+                        <a 
+                            style="text-decoration : none"
+                            class="glyphicon glyphicon-remove"
+                            ng-click="delete(t)">
+                        </a>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div class="box-footer clearfix">
-        <div align="center">
-            <pagination 
-                total-items="paging.totalItems" 
-                ng-model="paging.currentPage"
-                ng-change="showUsers()"
-                class="pagination-sm"
-                items-per-page="paging.itemsPerPage"
-                boundary-links="true"
-                previous-text="&lsaquo;"
-                next-text="&rsaquo;"
-                first-text="&laquo;"
-                last-text="&raquo;">
-            </pagination>
+        <div class="box-footer clearfix">
+            <div align="center">
+                <pagination 
+                    total-items="paging.totalItems" 
+                    ng-model="paging.currentPage"
+                    ng-change="showUsers()"
+                    class="pagination-sm"
+                    items-per-page="paging.itemsPerPage"
+                    boundary-links="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+                </pagination>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Dialog Delete -->
-<div class="modal fade bs-example-modal-sm" id="dialogDelete" tabindex="-1" customer="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<!-- <div 
+    class="
+        modal
+        fade
+        bs-example-modal-sm" 
+    id="dialogDelete"
+    tabindex="-1"
+    customer="dialog"
+    aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body">
           <center>Are you sure ?</center>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-primary" ng-click="remove()" data-dismiss="modal">Yes</button>
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal">
+            No
+        </button>
+        <button
+            type="button"
+            class="btn btn-primary"
+            ng-click="delete(id)"
+            data-dismiss="modal">
+            Yes
+        </button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 

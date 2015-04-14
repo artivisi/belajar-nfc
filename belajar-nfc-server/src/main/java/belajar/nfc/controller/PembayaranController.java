@@ -57,7 +57,8 @@ public class PembayaranController extends OptionsController {
             newSaldo.setCustomer(entriTransaksi.getCustomer());
             saldoDao.save(newSaldo);
         }
-        else { throw new Exception("Gagal menyimpan/merubah saldo"); }
+        entriTransaksi.setLunas(Boolean.TRUE);
+        entriTransaksiDao.save(entriTransaksi);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
