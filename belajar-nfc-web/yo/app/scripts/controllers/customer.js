@@ -7,6 +7,7 @@ angular.module('belajarNfcappApp')
         $event.preventDefault();
         $event.stopPropagation();  
         $scope.openedtanggalLahir = true;
+        $scope.customerModal = {};
     };
 
   $scope.loadCustomers = function(){
@@ -27,9 +28,7 @@ angular.module('belajarNfcappApp')
   }
 
  	$scope.saveCustomer = function(x){
-      console.log('x id :', x.id);
       if(x.id == null){
-          console.log('save null');
           if ($scope.fileFoto != null) {
             var dateFormat = $filter('date')($scope.currentCustomer.tanggalLahir, 'yyyy-MM-dd');
             var fd = new FormData();
@@ -44,7 +43,6 @@ angular.module('belajarNfcappApp')
             });
         }
       }else {
-          console.log('save not null');
           if ($scope.fileFoto != null) {
               var dateFormat = $filter('date')(x.tanggalLahir, 'yyyy-MM-dd');
               var fd = new FormData();
@@ -69,6 +67,22 @@ angular.module('belajarNfcappApp')
 
   $scope.editCustomer = function(data){
     $scope.currentCustomer = data;
+  }
+
+  $scope.showCustomer = function(customer){
+    $('#detailCustomer').modal('show');
+    $scope.customerModal = customer;
+  }
+
+  $scope.cekStatus = function(ui){
+      if(ui == $scope.customerModal.id){
+          $scope.status = "sukses";
+          customerservice.cekStatus($scope.status).success(function(data){
+              if(data == "sukses"){
+                  bootbox.alert("berhasil di cetak..");
+              }else{ bootbox.alert("gagal di cetak.."); }
+          });
+      }
   }
 
   }); 

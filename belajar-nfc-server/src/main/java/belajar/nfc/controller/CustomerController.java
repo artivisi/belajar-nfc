@@ -11,10 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,14 +35,32 @@ public class CustomerController extends OptionsController{
     @Autowired
     private CustomerDao customerDao;
 
+    @Transactional(readOnly = true)
     @RequestMapping(method = RequestMethod.GET)
     public Page<Customer> findAllCustomer(Pageable pageable) {
-        return customerDao.findAll(pageable);
+        Page<Customer> result = customerDao.findAll(pageable);
+        for (Customer r : result) {
+            if(r.getFoto()!=null){
+                r.setBase64("data:image/jpg;base64," + Base64.encodeBase64String(r.getFoto()));
+            } else {
+                r.setBase64("");
+            }
+            r.setFoto(null);
+        }
+        return result;
     }
     
+    @Transactional(readOnly = true)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Customer findOne(@PathVariable(value = "id") String id) {
-        return customerDao.findOne(id);
+        Customer c = customerDao.findOne(id);
+        if(c.getFoto()!=null){
+            c.setBase64("data:image/jpg;base64," + Base64.encodeBase64String(c.getFoto()));
+        } else {
+            c.setBase64("");
+        }
+        c.setFoto(null);
+        return c;
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.POST)
@@ -59,10 +78,10 @@ public class CustomerController extends OptionsController{
         SimpleDateFormat formatDdate = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatDdate.parse(customerDate);
         customer.setTanggalLahir(date);
-        byte[] buf = new byte[multipartFile.getInputStream().available()];
+        
+        byte[] buf = multipartFile.getBytes();
         customer.setFoto(buf);
         customerDao.save(customer);
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -77,6 +96,16 @@ public class CustomerController extends OptionsController{
             throw new Exception("Data tidak ditemukan");
         }
         customerDao.delete(customer);
+    }
+    
+    @RequestMapping(value = "/print/card/{id}", method = RequestMethod.GET)
+    public String statusResponse(@PathVariable(value = "id") String id) throws Exception{
+        String status = "gagal";
+        if(id.equals("sukses")){
+             status = "sukses";
+        }else{ status = "gagal"; }
+        
+        return status;
     }
 
 }
