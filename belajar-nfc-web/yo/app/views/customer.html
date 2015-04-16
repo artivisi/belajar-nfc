@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div align="right">
-                            <button class="btn btn-primary" ng-click="saveCustomer()" ng-disabled="isClean() || formCustomer.$invalid">Save</button>
+                            <button class="btn btn-primary" ng-click="saveCustomer(currentCustomer)" ng-disabled="isClean() || formCustomer.$invalid">Save</button>
                             <button class="btn btn-default" ng-click="clearForm()">Cancel</button>
                         </div>
                     </div>
@@ -111,8 +111,9 @@
                     <td>{{x.alamat}}</td>
                     <td>{{x.tanggalLahir | date: 'yyyy-MM-dd'}}</td>
                     <td class="col-xs-1">
-                        <a class="glyphicon glyphicon-edit" ng-click="edit(x)"></a>
+                        <a class="glyphicon glyphicon-edit" ng-click="editCustomer(x)"></a>
                         <a class="glyphicon glyphicon-remove" ng-click="deleteCustomer(x)"></a>
+                        <a class="glyphicon glyphicon-list" ng-click="showCustomer(x)"></a>
                     </td>
                 </tr>
             </tbody>
@@ -150,4 +151,55 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="detailCustomer" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Detail Customer</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-8">
+                    <table cellspacing="20">
+                        <tr>
+                            <td>Nama </td>
+                            <td width="20px">&nbsp; : &nbsp;</td>
+                            <td>{{customerModal.nama}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email </td>
+                            <td width="20px">&nbsp; : &nbsp;</td>
+                            <td>{{customerModal.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat </td>
+                            <td width="20px">&nbsp; : &nbsp;</td>
+                            <td>{{customerModal.alamat}}</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Lahir </td>
+                            <td width="20px">&nbsp; : &nbsp;</td>
+                            <td>{{customerModal.tanggalLahir}}</td>
+                        </tr>
+                    </table>customerModal
+                </div>
+                <div class="col-md-3">
+                    <img src="{{customerModal.base64}}" width="170px" height="200px">
+                </div>
+                    
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="cekStatus(customerModal.id)">Print Card</button>
+        </div>
+      </div>
+    </div>
+  </div>
 

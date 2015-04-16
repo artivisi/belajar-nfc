@@ -1,0 +1,68 @@
+<div class="pull-center"><h2>Laporan Transaksi</h2></div>
+<p>Periode Transaksi :</p>
+<form class="form-inline" role="form">
+    <div class="form-group">
+    	<div class="col-md-2">
+      		<label class="control-label" for="startdate">Tanggal Mulai:</label>
+    	</div>
+    	<div class="col-md-3">
+    		<p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="startdate" is-open="opened1" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+		</div>
+		<div class="col-md-2">
+      		<label class="control-label" for="startdate">Tanggal Selesai:</label>
+    	</div>
+    	<div class="col-md-3">
+    		<p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="enddate" is-open="opened2" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+		</div>
+    	<button type="submit" class="btn btn-default" ng-click="prosesLoadData()">Proses</button>
+    </div>
+</form>
+<div id="hiddeShowProcess" style="display:none">
+<hr>
+	<table>
+		<tr>
+			<td>Periode Mulai : {{startdate | date:'dd-MM-yyyy'}}</td>
+		</tr>
+		<tr>
+			<td>Periode Selesai : {{enddate | date:'dd-MM-yyyy'}}</td>
+		</tr>
+		<tr>
+			<td>Total Row : {{ (listTransaksis | filter:isQuestionInRange).length }}</td>
+		</tr>
+		<tr>
+			<td>Total Transaksi : Rp. {{total}},00</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+
+	<table class="table table-hover">
+		<tr>
+			<td>Tanggal Transaksi</td>
+			<td>Customer Name</td>
+			<td>Keterangan</td>
+			<td>Nominal</td>
+		</tr>
+		<tr ng-repeat="data in listTransaksis">
+			<td>{{data.tanggal | date:'dd-MM-yyyy'}}</td>
+			<td>{{data.customer.nama}}</td>
+			<td>{{data.keterangan}}</td>
+			<td>{{data.nilaiTransaksi}}</td>
+		</tr>
+	</table>
+</div>
+
+
+
+

@@ -6,13 +6,18 @@
 package belajar.nfc.controller;
 
 import belajar.nfc.domain.EntriTransaksi;
+import belajar.nfc.helper.DateHelper;
 import belajar.nfc.service.EntriTransaksiDao;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.threeten.bp.Instant;
 
 /**
  *
@@ -66,5 +71,12 @@ public class EntriTransaksiController extends OptionsController {
         }
         entriTransaksiDao.save(entriTransaksi);
     }
-
+    
+    @RequestMapping(value = "/laporan", method = RequestMethod.GET)
+    public Iterable<EntriTransaksi> findStartdateAndEnddate(
+        @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("sdate") Date sdate,
+        @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("edate") Date edate) throws Exception {
+        
+        return entriTransaksiDao.findByStartDateAndEndDate(DateHelper.dateWithMinTime(sdate), DateHelper.dateWithMaxTime(edate));
+    }
 }

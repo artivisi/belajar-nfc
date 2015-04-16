@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'file-model',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'base64'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -36,6 +37,10 @@ angular
       .when('/transaksi/entriTransaksi', {
         templateUrl: 'views/entri_transaksi.html',
         controller: 'EntryTransaksiCtrl'
+      })
+      .when('/laporan/transaksi', {
+        templateUrl: 'views/laporantransaksi.html',
+        controller: 'LaporantransaksiCtrl'
       })
       .otherwise({
         redirectTo: '/'
