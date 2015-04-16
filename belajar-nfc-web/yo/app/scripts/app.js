@@ -37,6 +37,10 @@ angular
         templateUrl: 'views/entri_transaksi.html',
         controller: 'EntryTransaksiCtrl'
       })
+      .when('/laporan/transaksi', {
+        templateUrl: 'views/laporantransaksi.html',
+        controller: 'LaporantransaksiCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

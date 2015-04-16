@@ -52,48 +52,6 @@
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
-                    <!-- <div 
-                        class="form-group" 
-                        ng-class="{
-                            'has-error':formEntriTransaksi.tanggal.$invalid, 
-                            'has-success':formEntriTransaksi.tanggal.$valid
-                            }"
-                        >
-                        <div class="col-sm-4">
-                            <label for="tanggal" class="control-label">Tanggal Transaksi</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <p class="input-group">
-                            <input type="text" 
-                                 class="form-control" 
-                                 name="tanggal" 
-                                 ng-model="currentEntriTransaction.tanggal"
-                                 datepicker-popup="dd MMMM yyyy" 
-                                 is-open="tanggalIsOpened" 
-                                 close-text="Close" 
-                                 required />
-                                <span class="input-group-btn">
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-default" 
-                                        ng-click="openTanggal($event)">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                    </button>
-                                </span>
-                            </p>
-                            <span 
-                                style="
-                                    float:right; 
-                                    color:white" 
-                                class="
-                                    help-block 
-                                    label 
-                                    label-danger" 
-                                ng-show="formEntriTransaksi.tanggal.$error.required">
-                                This Field is Required
-                            </span>
-                        </div>
-                    </div> -->
                     <div 
                         class="form-group" 
                         ng-class="{
@@ -232,39 +190,3 @@
         </div>
     </div>
 </div>
-
-<!-- Dialog Delete -->
-<!-- <div 
-    class="
-        modal
-        fade
-        bs-example-modal-sm" 
-    id="dialogDelete"
-    tabindex="-1"
-    customer="dialog"
-    aria-labelledby="mySmallModalLabel"
-    aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-body">
-          <center>Are you sure ?</center>
-      </div>
-      <div class="modal-footer">
-        <button
-            type="button"
-            class="btn btn-default"
-            data-dismiss="modal">
-            No
-        </button>
-        <button
-            type="button"
-            class="btn btn-primary"
-            ng-click="delete(id)"
-            data-dismiss="modal">
-            Yes
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
-

@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div align="right">
-                            <button class="btn btn-primary" ng-click="saveCustomer()" ng-disabled="isClean() || formCustomer.$invalid">Save</button>
+                            <button class="btn btn-primary" ng-click="saveCustomer(currentCustomer)" ng-disabled="isClean() || formCustomer.$invalid">Save</button>
                             <button class="btn btn-default" ng-click="clearForm()">Cancel</button>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                     <td>{{x.alamat}}</td>
                     <td>{{x.tanggalLahir | date: 'yyyy-MM-dd'}}</td>
                     <td class="col-xs-1">
-                        <a class="glyphicon glyphicon-edit" ng-click="edit(x)"></a>
+                        <a class="glyphicon glyphicon-edit" ng-click="editCustomer(x)"></a>
                         <a class="glyphicon glyphicon-remove" ng-click="deleteCustomer(x)"></a>
                     </td>
                 </tr>

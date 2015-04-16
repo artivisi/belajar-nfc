@@ -44,26 +44,24 @@ public class CustomerController extends OptionsController{
         return customerDao.findOne(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveCustomer(HttpServletRequest request, 
-        HttpServletResponse response, 
-        @RequestParam("foto") MultipartFile multipartFile) throws Exception {
-        Customer customer = new Customer();
-        if (customer != null) {
-            customer.setNama(request.getParameter("nama"));
-            customer.setAlamat(request.getParameter("alamat"));
-            customer.setEmail(request.getParameter("email"));
-            String customerDate = request.getParameter("tanggalLahir");
-            SimpleDateFormat formatDdate = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = formatDdate.parse(customerDate);
-            customer.setTanggalLahir(date);
-            byte[] buf = new byte[multipartFile.getInputStream().available()];
-            customer.setFoto(buf);
-            customerDao.save(customer);
-        }
-        else if(customer == null){
-            throw new Exception("Tidak boleh kosong");
-        }
+    @RequestMapping(value="/{id}", method = RequestMethod.POST)
+    public void saveCustomer(
+            @PathVariable String id, @RequestParam("foto") MultipartFile multipartFile,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Customer customer = findOne(id);
+        
+        if(customer==null) customer=new Customer();
+        
+        customer.setNama(request.getParameter("nama"));
+        customer.setAlamat(request.getParameter("alamat"));
+        customer.setEmail(request.getParameter("email"));
+        String customerDate = request.getParameter("tanggalLahir");
+        SimpleDateFormat formatDdate = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatDdate.parse(customerDate);
+        customer.setTanggalLahir(date);
+        byte[] buf = new byte[multipartFile.getInputStream().available()];
+        customer.setFoto(buf);
+        customerDao.save(customer);
 
     }
 

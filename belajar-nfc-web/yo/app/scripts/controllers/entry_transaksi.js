@@ -60,6 +60,11 @@ angular.module('belajarNfcappApp')
 			$scope.reloadTransaction();
 			$scope.clearForm();
 	}    
+
+    $scope.detail = function(){
+        $('#detailtransaksi').modal('show');
+    }
+
     $scope.reloadCustomer();
     $scope.reloadTransaction();
 
